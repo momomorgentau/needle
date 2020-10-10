@@ -16,3 +16,7 @@ MonoBehaviour:
   xMin: -1
   zMax: 0.6
   zMin: -1.6
+  needleLength: 0.4
+  maxNeedleNum: 5
+  delayTime: 1.5
+  destroyTime: 1

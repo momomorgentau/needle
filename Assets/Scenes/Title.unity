@@ -1717,6 +1717,16 @@ PrefabInstance:
       propertyPath: m_ScreenMatchMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1323654519064393193, guid: 1bab4dc376b693a4e872be27e1221f1b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0023651
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323654519064393193, guid: 1bab4dc376b693a4e872be27e1221f1b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2145.3687
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bab4dc376b693a4e872be27e1221f1b, type: 3}
 --- !u!1 &1419372673
@@ -2582,7 +2592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: -36.200012}
+  m_AnchoredPosition: {x: 28, y: -36.200012}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2119775900
@@ -2617,7 +2627,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4ECA\u65E5\u306E\u3055\u3093\u3059\u3046\n"
+  m_Text: "\u305F\u306E\u3057\u3044\u306E\u3055\u3093\u3059\u3046\n"
 --- !u!222 &2119775901
 CanvasRenderer:
   m_ObjectHideFlags: 0

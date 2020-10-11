@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GroundManager groundManager;
     public static GameManager instance;
     public UIManager uiManager;
+    private PlayerSaveData playerSaveData;
     [SerializeField]
     private GameObject needleObj;
     [SerializeField]
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     public float delayTime;
     //消えるまでの時間
     public int destroyTime;
+    
 
     const double ansPi = 3.14159265358979;
     
@@ -60,7 +63,8 @@ public class GameManager : MonoBehaviour
             return c;
         }
     }
-    public Score score = new Score(0,0,0.0f);
+
+    public Score score = new Score(0, 0, 0.0f);
 
 
 
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void Setup() 
     {
-        
+        playerSaveData = GetComponent<PlayerSaveData>();
         groundManager.AddEventListenerOnTap(CreateNeedle);
         //画面に置いたキューブから取得
         xMax = upperRight.transform.position.x;
@@ -93,16 +97,23 @@ public class GameManager : MonoBehaviour
         zMin = lowerLeft.transform.position.z;
         //scriptbleObjectから取得
         needleLength = gameParameter.needleLength;
+
+        //セーブデータをロード
+        score.existNeedleCount = playerSaveData.Load("existNeedleCount");
+        score.touchNeedleCount = playerSaveData.Load("touchNeedleCount");
+
         UIupdate();
         maxNeedleNum = gameParameter.maxNeedleNum;
         delayTime = gameParameter.delayTime;
         destroyTime = gameParameter.destroyTime;
 
+        
+
 
 
 
     }
-
+    //針を生成
     public void CreateNeedle()
     {
         float x, z;
@@ -112,13 +123,19 @@ public class GameManager : MonoBehaviour
         Instantiate(needleObj, new Vector3(x, 5.0f, z), qua);
 
         ++score.existNeedleCount;
-        score.cal();
+
         UIupdate();
     }
-
+    //UIを更新する処理
     public void UIupdate() 
     {
+        score.cal();
         uiManager.UpdateScore(score.existNeedleCount, score.touchNeedleCount, score.pi,score.def);
+    }
+    //gameからtitleに戻るときに行う処理
+    public void Go2Title() 
+    {
+        playerSaveData.Save(score.existNeedleCount,score.touchNeedleCount);
     }
 
 

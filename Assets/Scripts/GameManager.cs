@@ -30,37 +30,51 @@ public class GameManager : MonoBehaviour
     public float delayTime;
     //消えるまでの時間
     public int destroyTime;
+
+    const double ansPi = 3.14159265358979;
     
     public struct Score{
         public int existNeedleCount;
         public int touchNeedleCount;
-        public float pi;
+        public double pi;
+        public double def;
         public Score(int e, int t, float p) 
         {
             existNeedleCount = e;
             touchNeedleCount = t;
             pi = p;
+            def = 0.0f;
         }
 
         public void cal()
         {
             if (touchNeedleCount == 0) pi = 0.0f;
-            else pi = (float) existNeedleCount / touchNeedleCount;
+            else pi = (double) existNeedleCount / touchNeedleCount;
+            def = Abs(ansPi, pi);
+        }
+
+        private double Abs(double a, double b)
+        {
+            double c = a - b;
+            if (c < 0) c *= -1;
+            return c;
         }
     }
     public Score score = new Score(0,0,0.0f);
 
 
+
+    //staticだけどシングルトンにはしない
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 
@@ -79,7 +93,7 @@ public class GameManager : MonoBehaviour
         zMin = lowerLeft.transform.position.z;
         //scriptbleObjectから取得
         needleLength = gameParameter.needleLength;
-        uiManager.UpdateScore(score.existNeedleCount, score.touchNeedleCount, score.pi);
+        UIupdate();
         maxNeedleNum = gameParameter.maxNeedleNum;
         delayTime = gameParameter.delayTime;
         destroyTime = gameParameter.destroyTime;
@@ -99,12 +113,12 @@ public class GameManager : MonoBehaviour
 
         ++score.existNeedleCount;
         score.cal();
-        uiManager.UpdateScore(score.existNeedleCount, score.touchNeedleCount,score.pi);
+        UIupdate();
     }
 
     public void UIupdate() 
     {
-        uiManager.UpdateScore(score.existNeedleCount, score.touchNeedleCount, score.pi);
+        uiManager.UpdateScore(score.existNeedleCount, score.touchNeedleCount, score.pi,score.def);
     }
 
 
